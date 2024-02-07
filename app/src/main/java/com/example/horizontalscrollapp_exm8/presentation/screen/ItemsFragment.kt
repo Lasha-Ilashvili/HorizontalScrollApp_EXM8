@@ -5,6 +5,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.horizontalscrollapp_exm8.databinding.FragmentItemsBinding
+import com.example.horizontalscrollapp_exm8.presentation.adapter.ItemsPagerAdapter
 import com.example.horizontalscrollapp_exm8.presentation.base.BaseFragment
 import com.example.horizontalscrollapp_exm8.presentation.event.ItemsEvent
 import com.example.horizontalscrollapp_exm8.presentation.extension.showToast
@@ -19,7 +20,6 @@ class ItemsFragment : BaseFragment<FragmentItemsBinding>(FragmentItemsBinding::i
     private val viewModel: ItemsViewModel by viewModels()
 
     override fun bind() {
-
     }
 
     override fun bindObserves() {
@@ -44,10 +44,9 @@ class ItemsFragment : BaseFragment<FragmentItemsBinding>(FragmentItemsBinding::i
 //            if (storeItemsState.isLoading) View.VISIBLE else View.GONE
 
         storeItemsState.data?.let {
-//            binding.rvParent.adapter = MainPageRecyclerAdapter().apply {
-//                itemOnClick = ::navigateToItemPage
-//                setParentData(it.categories)
-//            }
+            binding.pager.adapter = ItemsPagerAdapter().apply {
+                submitList(it)
+            }
         }
 
         storeItemsState.errorMessage?.let {
