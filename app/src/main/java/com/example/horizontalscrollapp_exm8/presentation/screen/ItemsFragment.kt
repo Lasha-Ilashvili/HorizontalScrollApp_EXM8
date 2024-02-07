@@ -1,11 +1,14 @@
 package com.example.horizontalscrollapp_exm8.presentation.screen
 
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.horizontalscrollapp_exm8.R
 import com.example.horizontalscrollapp_exm8.databinding.FragmentItemsBinding
 import com.example.horizontalscrollapp_exm8.presentation.adapter.ItemsPagerAdapter
+import com.example.horizontalscrollapp_exm8.presentation.adapter.ZoomOutPageTransformer
 import com.example.horizontalscrollapp_exm8.presentation.base.BaseFragment
 import com.example.horizontalscrollapp_exm8.presentation.event.ItemsEvent
 import com.example.horizontalscrollapp_exm8.presentation.extension.showToast
@@ -20,6 +23,37 @@ class ItemsFragment : BaseFragment<FragmentItemsBinding>(FragmentItemsBinding::i
     private val viewModel: ItemsViewModel by viewModels()
 
     override fun bind() {
+        setUpBottomNavigationBar()
+    }
+
+    private fun setUpBottomNavigationBar() {
+        with(binding.bottomNav) {
+            setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.gray))
+            selectedItemId = R.id.home
+
+            setOnItemSelectedListener {
+                when (it.itemId) {
+                    R.id.home -> {
+
+                        true
+                    }
+
+                    R.id.message -> {
+
+                        true
+                    }
+
+                    R.id.favorite -> {
+
+                        true
+                    }
+
+                    else -> {
+                        false
+                    }
+                }
+            }
+        }
     }
 
     override fun bindObserves() {
@@ -39,18 +73,19 @@ class ItemsFragment : BaseFragment<FragmentItemsBinding>(FragmentItemsBinding::i
 //        }
     }
 
-    private fun handleState(storeItemsState: ItemsState) {
+    private fun handleState(storeItemsState: ItemsState) = with(binding) {
 //        binding.progressBar.visibility =
 //            if (storeItemsState.isLoading) View.VISIBLE else View.GONE
 
         storeItemsState.data?.let {
-            binding.pager.adapter = ItemsPagerAdapter().apply {
+            pager.adapter = ItemsPagerAdapter().apply {
                 submitList(it)
             }
+            pager.setPageTransformer(ZoomOutPageTransformer())
         }
 
         storeItemsState.errorMessage?.let {
-            binding.root.showToast(storeItemsState.errorMessage)
+            root.showToast(storeItemsState.errorMessage)
             viewModel.onEvent(ItemsEvent.ResetErrorMessage)
         }
     }

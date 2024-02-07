@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.horizontalscrollapp_exm8.databinding.ScrollItemBinding
 import com.example.horizontalscrollapp_exm8.domain.model.Item
+import com.example.horizontalscrollapp_exm8.presentation.extension.loadImage
 
 class ItemsPagerAdapter : ListAdapter<Item, ItemsPagerAdapter.ItemsViewHolder>(ItemsDiffUtil) {
 
@@ -38,6 +39,9 @@ class ItemsPagerAdapter : ListAdapter<Item, ItemsPagerAdapter.ItemsViewHolder>(I
         fun bind() {
             val item = currentList[adapterPosition]
 
+            with(binding) {
+                ivItem.loadImage(item.cover)
+            }
         }
     }
 }
