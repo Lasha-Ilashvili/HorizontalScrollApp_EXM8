@@ -21,9 +21,6 @@ class ItemsViewModel @Inject constructor(
     private val _items = MutableStateFlow(ItemsState())
     val items get() = _items.asStateFlow()
 
-//    private val _uiEvent = MutableSharedFlow<MainPageUiEvent>()
-//    val uiEvent: SharedFlow<MainPageUiEvent> get() = _uiEvent
-
     init {
         setInitialList()
     }
@@ -60,8 +57,4 @@ class ItemsViewModel @Inject constructor(
             currentState.copy(errorMessage = message)
         }
     }
-
-//    sealed interface MainPageUiEvent {
-//        data object NavigateBackToWelcomePage : MainPageUiEvent
-//    }
 }

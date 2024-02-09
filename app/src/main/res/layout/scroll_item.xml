@@ -18,11 +18,17 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivItem"
-            android:layout_width="400dp"
-            android:layout_height="250dp"
-            android:adjustViewBounds="true"
-            android:scaleType="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
             tools:srcCompat="@drawable/ic_launcher_background" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="afjbfkfjb"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.cardview.widget.CardView>
 
